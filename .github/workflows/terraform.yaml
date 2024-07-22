@@ -21,7 +21,7 @@ jobs:
 
   QA:
     runs-on: ubuntu-latest
-    needs: DEV
+    needs: DEV-APPLY
     steps:
       - run: echo Just a Dummy Job
 
