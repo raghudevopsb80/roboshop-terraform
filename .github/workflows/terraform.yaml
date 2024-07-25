@@ -13,7 +13,7 @@ jobs:
   DEV-APPLY:
     runs-on: self-hosted
     #environment: dev
-    needs: DEV-PLAN
+    #needs: DEV-PLAN
     steps:
       - uses: actions/checkout@v4
       - name: Terraform Init
