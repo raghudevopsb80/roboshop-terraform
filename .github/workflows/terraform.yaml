@@ -1,18 +1,18 @@
 name: Provision Roboshop Infrastructure
 on: [workflow_dispatch]
 jobs:
-  DEV-PLAN:
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v4
-      - name: Terraform Init
-        run: terraform init -backend-config=env-dev/state.tfvars
-      - name: Terraform Plan
-        run: terraform plan -var-file=env-dev/main.tfvars
+#   DEV-PLAN:
+#     runs-on: self-hosted
+#     steps:
+#       - uses: actions/checkout@v4
+#       - name: Terraform Init
+#         run: terraform init -backend-config=env-dev/state.tfvars
+#       - name: Terraform Plan
+#         run: terraform plan -var-file=env-dev/main.tfvars
 
   DEV-APPLY:
     runs-on: self-hosted
-    environment: dev
+    #environment: dev
     needs: DEV-PLAN
     steps:
       - uses: actions/checkout@v4
