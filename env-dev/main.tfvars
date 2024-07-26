@@ -1,4 +1,5 @@
-env = "dev"
+env           = "dev"
+bastion_nodes = ["172.31.91.201/32"]
 
 vpc = {
   cidr               = "10.10.0.0/16"
@@ -16,8 +17,8 @@ ec2 = {
   frontend = {
     subnet_ref    = "web"
     instance_type = "t3.small"
-    app_port      = 80
-    app_sg_cidr   = ["10.10.0.0/24", "10.10.1.0/24"]
+    allow_port    = 80
+    allow_sg_cidr = ["10.10.0.0/24", "10.10.1.0/24"]
   }
 }
 
