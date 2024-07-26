@@ -28,7 +28,7 @@ resource "aws_subnet" "app" {
   availability_zone = var.availability_zones[count.index]
 
   tags = {
-    Name = "app-subnet"
+    Name = "app-subnet-${split("-", var.availability_zones[count.index])[2]}"
   }
 }
 
@@ -39,7 +39,7 @@ resource "aws_subnet" "db" {
   availability_zone = var.availability_zones[count.index]
 
   tags = {
-    Name = "db-subnet"
+    Name = "db-subnet-${split("-", var.availability_zones[count.index])[2]}"
   }
 }
 
@@ -50,17 +50,47 @@ resource "aws_subnet" "public" {
   availability_zone = var.availability_zones[count.index]
 
   tags = {
-    Name = "public-subnet"
+    Name = "public-subnet-${split("-", var.availability_zones[count.index])[2]}"
   }
 }
 
 ## Route tables
 resource "aws_route_table" "public" {
-  count             = length(var.public_subnets)
+  count  = length(var.public_subnets)
   vpc_id = aws_vpc.main.id
 
 
   tags = {
-    Name = "public-rt"
+    Name = "public-rt-${split("-", var.availability_zones[count.index])[2]}"
+  }
+}
+
+resource "aws_route_table" "web" {
+  count  = length(var.web_subnets)
+  vpc_id = aws_vpc.main.id
+
+
+  tags = {
+    Name = "web-rt-${split("-", var.availability_zones[count.index])[2]}"
+  }
+}
+
+resource "aws_route_table" "app" {
+  count  = length(var.app_subnets)
+  vpc_id = aws_vpc.main.id
+
+
+  tags = {
+    Name = "app-rt-${split("-", var.availability_zones[count.index])[2]}"
+  }
+}
+
+resource "aws_route_table" "db" {
+  count  = length(var.db_subnets)
+  vpc_id = aws_vpc.main.id
+
+
+  tags = {
+    Name = "db-rt-${split("-", var.availability_zones[count.index])[2]}"
   }
 }
