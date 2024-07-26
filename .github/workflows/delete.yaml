@@ -2,7 +2,7 @@ name: Remove Roboshop Infrastructure
 on: [workflow_dispatch]
 jobs:
 
-  DEV-APPLY:
+  DEV:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
