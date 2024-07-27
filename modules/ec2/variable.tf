@@ -10,4 +10,4 @@ variable "capacity" {
   default = {}
 }
 variable "asg" {}
-
+variable "vault_token" {}
