@@ -32,6 +32,7 @@ resource "aws_security_group" "allow_tls" {
 
 
 resource "aws_launch_template" "main" {
+  count                  = var.asg ? 1 : 0
   name                   = "${var.name}-${var.env}-lt"
   image_id               = data.aws_ami.rhel9.image_id
   instance_type          = var.instance_type
@@ -44,6 +45,7 @@ resource "aws_launch_template" "main" {
 
 
 resource "aws_autoscaling_group" "main" {
+  count               = var.asg ? 1 : 0
   name                = "${var.name}-${var.env}-asg"
   desired_capacity    = var.capacity["desired"]
   max_size            = var.capacity["max"]
