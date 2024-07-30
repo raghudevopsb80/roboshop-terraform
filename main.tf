@@ -31,6 +31,7 @@ module "apps" {
   asg           = true
   vault_token   = var.vault_token
   zone_id       = var.zone_id
+  internal      = each.value["lb_internal"]
 }
 
 module "db" {
