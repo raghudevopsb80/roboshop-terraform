@@ -167,3 +167,14 @@ resource "aws_lb_listener" "front_end" {
     target_group_arn = aws_lb_target_group.main.*.arn[count.index]
   }
 }
+
+
+resource "aws_route53_record" "lb" {
+  count   = var.asg ? 1 : 0
+  zone_id = var.zone_id
+  name    = "${var.name}.${var.env}"
+  type    = "CNAME"
+  ttl     = 10
+  records = [aws_lb.main.*.dns_name[count.index]]
+}
+
