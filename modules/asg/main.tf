@@ -156,6 +156,23 @@ resource "aws_lb_listener" "public-https" {
   }
 }
 
+resource "aws_lb_listener" "public-http" {
+  count             = var.internal ? 0 : 1
+  load_balancer_arn = aws_lb.main.arn
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
 resource "aws_route53_record" "lb" {
   zone_id = var.zone_id
   name    = "${var.name}.${var.env}"
