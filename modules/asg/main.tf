@@ -88,6 +88,13 @@ resource "aws_security_group" "load-balancer" {
     cidr_blocks = var.allow_lb_sg_cidr
   }
 
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "TCP"
+    cidr_blocks = var.allow_lb_sg_cidr
+  }
+
   tags = {
     Name = "${var.name}-${var.env}-alb-sg"
   }
