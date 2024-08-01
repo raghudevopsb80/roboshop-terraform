@@ -104,7 +104,7 @@ resource "aws_lb_listener_rule" "listener-rule" {
 
   condition {
     host_header {
-      values = [aws_route53_record.lb.name]
+      values = [aws_route53_record.lb.fqdn]
     }
   }
 }
