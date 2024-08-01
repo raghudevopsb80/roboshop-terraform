@@ -136,6 +136,9 @@ load_balancers = {
     allow_lb_sg_cidr   = ["10.10.2.0/24", "10.10.3.0/24", "10.10.4.0/24", "10.10.5.0/24"]
     subnet_ref         = "app"
     acm_https_arn      = null
+    listener_port      = "80"
+    listener_protocol  = "HTTP"
+    ssl_policy         = null
   }
 
   public = {
@@ -144,6 +147,9 @@ load_balancers = {
     allow_lb_sg_cidr   = ["0.0.0.0/0"]
     subnet_ref         = "public"
     acm_https_arn      = "arn:aws:acm:us-east-1:633788536644:certificate/764c1d94-5562-48f4-be92-fca22568f53d"
+    listener_port      = "443"
+    listener_protocol  = "HTTPS"
+    ssl_policy         = "ELBSecurityPolicy-2016-08"
   }
 }
 
