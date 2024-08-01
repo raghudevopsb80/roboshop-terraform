@@ -27,9 +27,7 @@ apps = {
       max     = 1
       min     = 1
     }
-    lb_internal   = false
-    lb_subnet_ref = "public"
-    acm_https_arn = "arn:aws:acm:us-east-1:633788536644:certificate/764c1d94-5562-48f4-be92-fca22568f53d"
+    lb_ref = "public"
   }
 
   catalogue = {
@@ -43,9 +41,7 @@ apps = {
       max     = 1
       min     = 1
     }
-    lb_internal   = true
-    lb_subnet_ref = "app"
-    acm_https_arn = null
+    lb_ref = "private"
   }
 
   cart = {
@@ -59,9 +55,7 @@ apps = {
       max     = 1
       min     = 1
     }
-    lb_internal   = true
-    lb_subnet_ref = "app"
-    acm_https_arn = null
+    lb_ref = "private"
   }
 
   user = {
@@ -75,9 +69,7 @@ apps = {
       max     = 1
       min     = 1
     }
-    lb_internal   = true
-    lb_subnet_ref = "app"
-    acm_https_arn = null
+    lb_ref = "private"
   }
 
   shipping = {
@@ -91,9 +83,7 @@ apps = {
       max     = 1
       min     = 1
     }
-    lb_internal   = true
-    lb_subnet_ref = "app"
-    acm_https_arn = null
+    lb_ref = "private"
   }
 
   payment = {
@@ -107,9 +97,7 @@ apps = {
       max     = 1
       min     = 1
     }
-    lb_internal   = true
-    lb_subnet_ref = "app"
-    acm_https_arn = null
+    lb_ref = "private"
   }
 
 }

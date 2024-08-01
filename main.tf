@@ -18,23 +18,20 @@ module "apps" {
 
   source = "./modules/asg"
 
-  for_each         = var.apps
-  name             = each.key
-  instance_type    = each.value["instance_type"]
-  allow_port       = each.value["allow_port"]
-  allow_sg_cidr    = each.value["allow_sg_cidr"]
-  subnet_ids       = module.vpc.subnets[each.value["subnet_ref"]]
-  capacity         = each.value["capacity"]
-  vpc_id           = module.vpc.vpc_id
-  env              = var.env
-  bastion_nodes    = var.bastion_nodes
-  asg              = true
-  vault_token      = var.vault_token
-  zone_id          = var.zone_id
-  internal         = each.value["lb_internal"]
-  lb_subnet_ids    = module.vpc.subnets[each.value["lb_subnet_ref"]]
-  allow_lb_sg_cidr = each.value["allow_lb_sg_cidr"]
-  acm_https_arn    = each.value["acm_https_arn"]
+  for_each      = var.apps
+  name          = each.key
+  instance_type = each.value["instance_type"]
+  allow_port    = each.value["allow_port"]
+  allow_sg_cidr = each.value["allow_sg_cidr"]
+  subnet_ids    = module.vpc.subnets[each.value["subnet_ref"]]
+  capacity      = each.value["capacity"]
+  vpc_id        = module.vpc.vpc_id
+  env           = var.env
+  bastion_nodes = var.bastion_nodes
+  asg           = true
+  vault_token   = var.vault_token
+  zone_id       = var.zone_id
+  dns_name      = module.load-balancers[each.value["lb_red"]].dns_name
 }
 
 module "db" {
@@ -67,3 +64,4 @@ module "load-balancers" {
   subnet_ids         = module.vpc.subnets[each.value["subnet_ref"]]
   acm_https_arn      = each.value["acm_https_arn"]
 }
+
