@@ -27,7 +27,8 @@ apps = {
       max     = 1
       min     = 1
     }
-    lb_ref = "public"
+    lb_ref           = "public"
+    lb_rule_priority = 1
   }
 
   catalogue = {
@@ -41,7 +42,8 @@ apps = {
       max     = 1
       min     = 1
     }
-    lb_ref = "private"
+    lb_ref           = "private"
+    lb_rule_priority = 1
   }
 
   cart = {
@@ -55,7 +57,8 @@ apps = {
       max     = 1
       min     = 1
     }
-    lb_ref = "private"
+    lb_ref           = "private"
+    lb_rule_priority = 2
   }
 
   user = {
@@ -69,7 +72,8 @@ apps = {
       max     = 1
       min     = 1
     }
-    lb_ref = "private"
+    lb_ref           = "private"
+    lb_rule_priority = 3
   }
 
   shipping = {
@@ -83,7 +87,8 @@ apps = {
       max     = 1
       min     = 1
     }
-    lb_ref = "private"
+    lb_ref           = "private"
+    lb_rule_priority = 4
   }
 
   payment = {
@@ -97,7 +102,8 @@ apps = {
       max     = 1
       min     = 1
     }
-    lb_ref = "private"
+    lb_ref           = "private"
+    lb_rule_priority = 5
   }
 
 }
