@@ -31,7 +31,7 @@ module "apps" {
   asg           = true
   vault_token   = var.vault_token
   zone_id       = var.zone_id
-  dns_name      = module.load-balancers[each.value["lb_red"]].dns_name
+  dns_name      = module.load-balancers[each.value["lb_ref"]].dns_name
 }
 
 module "db" {
