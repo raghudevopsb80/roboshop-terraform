@@ -42,7 +42,7 @@ db = {
 }
 
 eks = {
-  eks_version = 1.30
+  eks_version = "1.30"
 
   node_groups = {
     main-spot = {
