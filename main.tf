@@ -31,11 +31,10 @@ module "vpc" {
 # }
 
 module "eks" {
-  depends_on = [module.vpc]
-  source     = "./modules/eks"
-
-  env = var.env
-
-  subnet_ids = module.vpc.app_subnet_ids
+  depends_on  = [module.vpc]
+  source      = "./modules/eks"
+  env         = var.env
+  subnet_ids  = module.vpc.app_subnet_ids
+  node_groups = var.eks["node_groups"]
 }
 
