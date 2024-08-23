@@ -37,20 +37,13 @@ resource "aws_eks_addon" "addons" {
   resolve_conflicts_on_create = "OVERWRITE"
 }
 
-resource "aws_eks_access_entry" "example" {
-  cluster_name      = aws_eks_cluster.main.name
-  principal_arn     = "arn:aws:iam::633788536644:role/workstation-role"
-  kubernetes_groups = []
-  type              = "STANDARD"
-}
+module "eks-iam-access" {
+  source   = "./eks-iam-access"
+  for_each = var.eks-iam-access
 
-# resource "aws_eks_access_policy_association" "workstation-access" {
-#   cluster_name  = aws_eks_cluster.main.name
-#   policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-#   principal_arn = "arn:aws:iam::633788536644:role/workstation-role"
-#
-#   access_scope {
-#     type = "cluster"
-#   }
-# }
+  cluster_name      = aws_eks_cluster.main.name
+  kubernetes_groups = each.value["kubernetes_groups"]
+  principal_arn     = each.value["principal_arn"]
+  policy_arn        = each.value["policy_arn"]
+}
 

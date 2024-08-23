@@ -58,6 +58,15 @@ eks = {
     kube-proxy = "v1.30.3-eksbuild.2"
     coredns    = "v1.11.1-eksbuild.11"
   }
+
+  eks-iam-access = {
+    workstation = {
+      principal_arn     = "arn:aws:iam::633788536644:role/workstation-role"
+      policy_arn        = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+      kubernetes_groups = []
+    }
+  }
+
 }
 
 
