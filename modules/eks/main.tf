@@ -8,7 +8,7 @@ resource "aws_eks_cluster" "main" {
   }
 
   access_config {
-    authentication_mode = "API_AND_CONFIG_MAP"
+    authentication_mode                         = "API_AND_CONFIG_MAP"
     bootstrap_cluster_creator_admin_permissions = true
   }
 }
@@ -30,10 +30,11 @@ resource "aws_eks_node_group" "main" {
 }
 
 resource "aws_eks_addon" "addons" {
-  for_each      = var.add_ons
-  cluster_name  = aws_eks_cluster.main.name
-  addon_name    = each.key
-  addon_version = each.value
+  for_each                    = var.add_ons
+  cluster_name                = aws_eks_cluster.main.name
+  addon_name                  = each.key
+  addon_version               = each.value
+  resolve_conflicts_on_create = "OVERWRITE"
 }
 
 resource "aws_eks_access_policy_association" "workstation-access" {
@@ -42,7 +43,7 @@ resource "aws_eks_access_policy_association" "workstation-access" {
   principal_arn = "arn:aws:iam::633788536644:role/workstation-role"
 
   access_scope {
-    type       = "cluster"
+    type = "cluster"
   }
 }
 
