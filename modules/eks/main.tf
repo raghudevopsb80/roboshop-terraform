@@ -37,13 +37,20 @@ resource "aws_eks_addon" "addons" {
   resolve_conflicts_on_create = "OVERWRITE"
 }
 
-resource "aws_eks_access_policy_association" "workstation-access" {
-  cluster_name  = aws_eks_cluster.main.name
-  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-  principal_arn = "arn:aws:iam::633788536644:role/workstation-role"
-
-  access_scope {
-    type = "cluster"
-  }
+resource "aws_eks_access_entry" "example" {
+  cluster_name      = aws_eks_cluster.main.name
+  principal_arn     = "arn:aws:iam::633788536644:role/workstation-role"
+  kubernetes_groups = []
+  type              = "STANDARD"
 }
+
+# resource "aws_eks_access_policy_association" "workstation-access" {
+#   cluster_name  = aws_eks_cluster.main.name
+#   policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+#   principal_arn = "arn:aws:iam::633788536644:role/workstation-role"
+#
+#   access_scope {
+#     type = "cluster"
+#   }
+# }
 
