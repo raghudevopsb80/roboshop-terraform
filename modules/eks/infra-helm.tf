@@ -49,7 +49,7 @@ EOF
 
 ## Metric Server for HPA.
 
-resource "null_resource" "external-secrets-store" {
+resource "null_resource" "metrics-server" {
   depends_on = [null_resource.kube-config]
 
   provisioner "local-exec" {
