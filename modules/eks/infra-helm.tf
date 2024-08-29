@@ -22,7 +22,7 @@ resource "helm_release" "external-secrets" {
 }
 
 resource "null_resource" "external-secrets-store" {
-  depends_on = [helm_release.external-secrets]
+  depends_on = [helm_release.external-secrets, null_resource.kube-config]
 
   provisioner "local-exec" {
     command =<<EOF
@@ -47,3 +47,14 @@ EOF
   }
 }
 
+## Metric Server for HPA.
+
+resource "null_resource" "external-secrets-store" {
+  depends_on = [null_resource.kube-config]
+
+  provisioner "local-exec" {
+    command =<<EOF
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+EOF
+  }
+}
