@@ -58,3 +58,17 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/late
 EOF
   }
 }
+
+
+## Prometheus Stack
+resource "helm_release" "prometheus-stack" {
+
+  depends_on = [null_resource.kube-config]
+
+  name       = "prometheus"
+  repository = "https://prometheus-community.github.io/helm-charts"
+  chart      = "prometheus-community/kube-prometheus-stack"
+  namespace  = "kube-system"
+  wait       = true
+}
+
