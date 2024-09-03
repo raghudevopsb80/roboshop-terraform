@@ -67,7 +67,7 @@ resource "helm_release" "prometheus-stack" {
 
   name       = "prometheus"
   repository = "https://prometheus-community.github.io/helm-charts"
-  chart      = "prometheus-community/kube-prometheus-stack"
+  chart      = "kube-prometheus-stack"
   namespace  = "kube-system"
   wait       = true
 }
