@@ -70,6 +70,21 @@ resource "helm_release" "prometheus-stack" {
   chart      = "kube-prometheus-stack"
   namespace  = "kube-system"
   wait       = true
+
+  values = [
+    file("${path.module}/helm-configs/prometheus-stack.yaml")
+  ]
+
+  set_list {
+    name  = "grafana.ingress.hosts"
+    value = ["grafana.${var.env}.rdevopsb80.online"]
+  }
+
+  set_list {
+    name  = "prometheus.ingress.hosts"
+    value = ["prometheus.${var.env}.rdevopsb80.online"]
+  }
+
 }
 
 ## Nginx ingress
