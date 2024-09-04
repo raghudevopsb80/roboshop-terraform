@@ -157,7 +157,8 @@ resource "aws_iam_role" "aws-ingress-controller-role" {
             "elasticloadbalancing:ModifyTargetGroup",
             "elasticloadbalancing:ModifyTargetGroupAttributes",
             "elasticloadbalancing:RegisterTargets",
-            "elasticloadbalancing:DeregisterTargets"
+            "elasticloadbalancing:DeregisterTargets",
+            "elasticloadbalancing:DescribeLoadBalancers"
           ],
           "Effect": "Allow",
           "Resource": "*"
