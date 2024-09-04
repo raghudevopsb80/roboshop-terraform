@@ -120,4 +120,63 @@ resource "aws_eks_pod_identity_association" "external-dns-pod-role" {
 }
 
 
+## AWS Load Balancer Controller Ingress
+resource "aws_iam_role" "aws-ingress-controller-role" {
+  name = "${var.env}-eks-aws-ingress-controller-role"
+
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : [
+            "pods.eks.amazonaws.com"
+          ]
+        },
+        "Action" : [
+          "sts:AssumeRole",
+          "sts:TagSession"
+        ]
+      }
+    ]
+  })
+
+  inline_policy {
+    name = "alb-access"
+
+    policy = jsonencode({
+      "Statement": [
+        {
+          "Action": [
+            "ec2:DescribeVpcs",
+            "ec2:DescribeSecurityGroups",
+            "ec2:DescribeInstances",
+            "elasticloadbalancing:DescribeTargetGroups",
+            "elasticloadbalancing:DescribeTargetHealth",
+            "elasticloadbalancing:ModifyTargetGroup",
+            "elasticloadbalancing:ModifyTargetGroupAttributes",
+            "elasticloadbalancing:RegisterTargets",
+            "elasticloadbalancing:DeregisterTargets"
+          ],
+          "Effect": "Allow",
+          "Resource": "*"
+        }
+      ],
+      "Version": "2012-10-17"
+    })
+  }
+
+}
+
+resource "aws_eks_pod_identity_association" "aws-ingress-controller-role" {
+  cluster_name    = aws_eks_cluster.main.name
+  namespace       = "kube-system"
+  service_account = "aws-ingress-aws-load-balancer-controller"
+  role_arn        = aws_iam_role.aws-ingress-controller-role.arn
+}
+
+
+
+
 
