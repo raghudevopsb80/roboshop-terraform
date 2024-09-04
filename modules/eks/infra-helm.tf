@@ -63,7 +63,7 @@ EOF
 ## Prometheus Stack
 resource "helm_release" "prometheus-stack" {
 
-  depends_on = [null_resource.kube-config]
+  depends_on = [null_resource.kube-config, helm_release.nginx-ingress]
 
   name       = "prometheus"
   repository = "https://prometheus-community.github.io/helm-charts"
@@ -98,4 +98,19 @@ resource "helm_release" "nginx-ingress" {
   namespace  = "kube-system"
   wait       = true
 }
+
+
+## External DNS
+resource "helm_release" "external-dns" {
+
+  depends_on = [null_resource.kube-config]
+
+  name       = "route53-dns"
+  repository = "https://kubernetes-sigs.github.io/external-dns/"
+  chart      = "external-dns"
+  namespace  = "kube-system"
+  wait       = true
+}
+
+
 
