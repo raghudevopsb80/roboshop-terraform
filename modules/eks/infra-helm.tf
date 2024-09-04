@@ -118,4 +118,16 @@ resource "helm_release" "external-dns" {
 }
 
 
+## AWS Load Balancer Controller ingress
+resource "helm_release" "aws-controller-ingress" {
+
+  depends_on = [null_resource.kube-config]
+
+  name       = "aws-ingress"
+  repository = "https://aws.github.io/eks-charts"
+  chart      = "aws-load-balancer-controller"
+  namespace  = "kube-system"
+  wait       = true
+}
+
 
