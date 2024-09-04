@@ -2,6 +2,6 @@ controller:
   service:
     annotations:
       service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:633788536644:certificate/764c1d94-5562-48f4-be92-fca22568f53d
-
+      service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
 
 
