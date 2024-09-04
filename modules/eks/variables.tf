@@ -4,3 +4,4 @@ variable "node_groups" {}
 variable "eks_version" {}
 variable "add_ons" {}
 variable "eks-iam-access" {}
+variable "vpc_id" {}

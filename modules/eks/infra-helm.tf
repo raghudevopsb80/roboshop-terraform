@@ -133,6 +133,12 @@ resource "helm_release" "aws-controller-ingress" {
     name  = "clusterName"
     value = aws_eks_cluster.main.name
   }
+
+  set {
+    name  = "vpcId"
+    value = var.vpc_id
+  }
+
 }
 
 

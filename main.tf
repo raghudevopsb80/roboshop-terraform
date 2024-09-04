@@ -39,5 +39,6 @@ module "eks" {
   eks_version    = var.eks["eks_version"]
   add_ons        = var.eks["add_ons"]
   eks-iam-access = var.eks["eks-iam-access"]
+  vpc_id         = module.vpc.vpc_id
 }
 
