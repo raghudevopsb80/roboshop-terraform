@@ -2,7 +2,7 @@ resource "null_resource" "kube-config" {
   depends_on = [aws_eks_node_group.main]
 
   provisioner "local-exec" {
-    command =<<EOF
+    command = <<EOF
 aws eks update-kubeconfig --name ${var.env}-eks
 kubectl apply -f /opt/vault-token.yaml
 EOF
@@ -25,7 +25,7 @@ resource "null_resource" "external-secrets-store" {
   depends_on = [helm_release.external-secrets, null_resource.kube-config]
 
   provisioner "local-exec" {
-    command =<<EOF
+    command = <<EOF
 kubectl apply -f - <<EOK
 apiVersion: external-secrets.io/v1beta1
 kind: ClusterSecretStore
@@ -53,7 +53,7 @@ resource "null_resource" "metrics-server" {
   depends_on = [null_resource.kube-config]
 
   provisioner "local-exec" {
-    command =<<EOF
+    command = <<EOF
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 EOF
   }
