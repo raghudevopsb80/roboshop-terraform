@@ -88,21 +88,21 @@ resource "helm_release" "prometheus-stack" {
 }
 
 ## Nginx ingress
-resource "helm_release" "nginx-ingress" {
-
-  depends_on = [null_resource.kube-config]
-
-  name       = "ingress-nginx"
-  repository = "https://kubernetes.github.io/ingress-nginx"
-  chart      = "ingress-nginx"
-  namespace  = "kube-system"
-  wait       = true
-
-  values = [
-    file("${path.module}/helm-configs/nginx-ingress.yaml")
-  ]
-
-}
+# resource "helm_release" "nginx-ingress" {
+#
+#   depends_on = [null_resource.kube-config]
+#
+#   name       = "ingress-nginx"
+#   repository = "https://kubernetes.github.io/ingress-nginx"
+#   chart      = "ingress-nginx"
+#   namespace  = "kube-system"
+#   wait       = true
+#
+#   values = [
+#     file("${path.module}/helm-configs/nginx-ingress.yaml")
+#   ]
+#
+# }
 
 
 ## External DNS
