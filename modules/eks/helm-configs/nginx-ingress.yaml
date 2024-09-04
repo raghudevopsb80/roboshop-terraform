@@ -10,13 +10,6 @@ controller:
       service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
     type: LoadBalancer
     externalTrafficPolicy: Local
-    ports:
-      http:
-        port: 80
-        targetPort: 80
-      https:
-        port: 443
-        targetPort: 443
   config:
     force-ssl-redirect: "true"
     ssl-redirect: "true"
