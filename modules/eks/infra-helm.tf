@@ -128,6 +128,11 @@ resource "helm_release" "aws-controller-ingress" {
   chart      = "aws-load-balancer-controller"
   namespace  = "kube-system"
   wait       = true
+
+  set {
+    name  = "clusterName"
+    value = aws_eks_cluster.main.name
+  }
 }
 
 
