@@ -97,6 +97,11 @@ resource "helm_release" "nginx-ingress" {
   chart      = "ingress-nginx"
   namespace  = "kube-system"
   wait       = true
+
+  values = [
+    file("${path.module}/helm-configs/nginx-ingress.yaml")
+  ]
+
 }
 
 
