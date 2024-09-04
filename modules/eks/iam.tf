@@ -57,4 +57,67 @@ resource "aws_iam_role_policy_attachment" "eks-node-AmazonEC2ContainerRegistryRe
   role       = aws_iam_role.eks-node.name
 }
 
+## External DNS
+resource "aws_iam_role" "external-dns-pod-role" {
+  name = "${var.env}-eks-external-dns-pod-role"
+
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : [
+            "pods.eks.amazonaws.com"
+          ]
+        },
+        "Action" : [
+          "sts:AssumeRole",
+          "sts:TagSession"
+        ]
+      }
+    ]
+  })
+
+  inline_policy {
+    name = "route53-access"
+
+    policy = jsonencode({
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Effect" : "Allow",
+          "Action" : [
+            "route53:ChangeResourceRecordSets"
+          ],
+          "Resource" : [
+            "arn:aws:route53:::hostedzone/*"
+          ]
+        },
+        {
+          "Effect" : "Allow",
+          "Action" : [
+            "route53:ListHostedZones",
+            "route53:ListResourceRecordSets",
+            "route53:ListTagsForResource"
+          ],
+          "Resource" : [
+            "*"
+          ]
+        }
+      ]
+      }
+    )
+  }
+
+}
+
+resource "aws_eks_pod_identity_association" "external-dns-pod-role" {
+  cluster_name    = aws_eks_cluster.main.name
+  namespace       = "kube-system"
+  service_account = "route53-dns-external-dns"
+  role_arn        = aws_iam_role.external-dns-pod-role.arn
+}
+
+
 
