@@ -6,5 +6,5 @@ grafana:
 prometheus:
   ingress:
     enabled: true
-    ingressClassName: nginx
+    ingressClassName: alb
 
