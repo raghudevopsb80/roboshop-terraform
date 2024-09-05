@@ -5,6 +5,7 @@ grafana:
     annotations:
       alb.ingress.kubernetes.io/scheme: internet-facing
       alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/group.name: roboshop
 
 prometheus:
   ingress:
@@ -13,4 +14,5 @@ prometheus:
     annotations:
       alb.ingress.kubernetes.io/scheme: internet-facing
       alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/group.name: roboshop
 
