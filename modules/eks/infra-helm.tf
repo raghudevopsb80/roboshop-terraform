@@ -63,7 +63,7 @@ EOF
 ## Prometheus Stack
 resource "helm_release" "prometheus-stack" {
 
-  depends_on = [null_resource.kube-config, helm_release.nginx-ingress]
+  depends_on = [null_resource.kube-config]
 
   name       = "prometheus"
   repository = "https://prometheus-community.github.io/helm-charts"
