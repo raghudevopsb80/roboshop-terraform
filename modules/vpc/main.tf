@@ -30,7 +30,8 @@ resource "aws_subnet" "web" {
   availability_zone = var.availability_zones[count.index]
 
   tags = {
-    Name = "web-subnet-${split("-", var.availability_zones[count.index])[2]}"
+    Name                                   = "web-subnet-${split("-", var.availability_zones[count.index])[2]}"
+    "kubernetes.io/cluster/${var.env}-dev" = "owned"
   }
 }
 
@@ -41,7 +42,9 @@ resource "aws_subnet" "app" {
   availability_zone = var.availability_zones[count.index]
 
   tags = {
-    Name = "app-subnet-${split("-", var.availability_zones[count.index])[2]}"
+    Name                                   = "app-subnet-${split("-", var.availability_zones[count.index])[2]}"
+    "kubernetes.io/cluster/${var.env}-dev" = "owned"
+    "kubernetes.io/role/internal-elb"      = 1
   }
 }
 
@@ -52,7 +55,8 @@ resource "aws_subnet" "db" {
   availability_zone = var.availability_zones[count.index]
 
   tags = {
-    Name = "db-subnet-${split("-", var.availability_zones[count.index])[2]}"
+    Name                                   = "db-subnet-${split("-", var.availability_zones[count.index])[2]}"
+    "kubernetes.io/cluster/${var.env}-dev" = "owned"
   }
 }
 
@@ -63,7 +67,9 @@ resource "aws_subnet" "public" {
   availability_zone = var.availability_zones[count.index]
 
   tags = {
-    Name = "public-subnet-${split("-", var.availability_zones[count.index])[2]}"
+    Name                                   = "public-subnet-${split("-", var.availability_zones[count.index])[2]}"
+    "kubernetes.io/cluster/${var.env}-dev" = "owned"
+    "kubernetes.io/role/elb"               = 1
   }
 }
 
