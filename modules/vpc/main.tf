@@ -4,6 +4,7 @@ resource "aws_vpc" "main" {
 
   tags = {
     Name = "${var.env}-vpc"
+    "kubernetes.io/cluster/${var.env}-eks" = "owned"
   }
 
 }
@@ -31,7 +32,7 @@ resource "aws_subnet" "web" {
 
   tags = {
     Name                                   = "web-subnet-${split("-", var.availability_zones[count.index])[2]}"
-    "kubernetes.io/cluster/${var.env}-dev" = "owned"
+    "kubernetes.io/cluster/${var.env}-eks" = "owned"
   }
 }
 
@@ -43,7 +44,7 @@ resource "aws_subnet" "app" {
 
   tags = {
     Name                                   = "app-subnet-${split("-", var.availability_zones[count.index])[2]}"
-    "kubernetes.io/cluster/${var.env}-dev" = "owned"
+    "kubernetes.io/cluster/${var.env}-eks" = "owned"
     "kubernetes.io/role/internal-elb"      = 1
   }
 }
@@ -56,7 +57,7 @@ resource "aws_subnet" "db" {
 
   tags = {
     Name                                   = "db-subnet-${split("-", var.availability_zones[count.index])[2]}"
-    "kubernetes.io/cluster/${var.env}-dev" = "owned"
+    "kubernetes.io/cluster/${var.env}-eks" = "owned"
   }
 }
 
@@ -68,7 +69,7 @@ resource "aws_subnet" "public" {
 
   tags = {
     Name                                   = "public-subnet-${split("-", var.availability_zones[count.index])[2]}"
-    "kubernetes.io/cluster/${var.env}-dev" = "owned"
+    "kubernetes.io/cluster/${var.env}-eks" = "owned"
     "kubernetes.io/role/elb"               = 1
   }
 }
