@@ -146,9 +146,10 @@ resource "aws_iam_role" "aws-ingress-controller-role" {
     name = "alb-access"
 
     policy = jsonencode({
-      "Statement" : [
+      "Version": "2012-10-17",
+      "Statement": [
         {
-          "Action" : [
+          "Action": [
             "ec2:DescribeVpcs",
             "ec2:DescribeSecurityGroups",
             "ec2:DescribeInstances",
@@ -159,13 +160,17 @@ resource "aws_iam_role" "aws-ingress-controller-role" {
             "elasticloadbalancing:RegisterTargets",
             "elasticloadbalancing:DeregisterTargets",
             "elasticloadbalancing:DescribeLoadBalancers",
-            "ec2:DescribeSubnets"
+            "ec2:DescribeSubnets",
+            "ec2:DescribeAvailabilityZones",
+            "ec2:CreateSecurityGroup",
+            "ec2:CreateTags",
+            "ec2:AuthorizeSecurityGroupIngress",
+            "shield:GetSubscriptionState"
           ],
-          "Effect" : "Allow",
-          "Resource" : "*"
+          "Effect": "Allow",
+          "Resource": "*"
         }
-      ],
-      "Version" : "2012-10-17"
+      ]
     })
   }
 
