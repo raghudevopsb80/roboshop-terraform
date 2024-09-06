@@ -9,7 +9,7 @@ grafana:
       alb.ingress.kubernetes.io/healthcheck-path: /login
       alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:633788536644:certificate/764c1d94-5562-48f4-be92-fca22568f53d
       alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
-      alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+      alb.ingress.kubernetes.io/ssl-redirect: '443'
 
 
 prometheus:
@@ -24,4 +24,5 @@ prometheus:
       alb.ingress.kubernetes.io/group.name: roboshop
       alb.ingress.kubernetes.io/healthcheck-path: /graph
       alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:633788536644:certificate/764c1d94-5562-48f4-be92-fca22568f53d
-      alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+      alb.ingress.kubernetes.io/ssl-redirect: '443'
