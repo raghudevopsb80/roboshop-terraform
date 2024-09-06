@@ -2,7 +2,6 @@ grafana:
   ingress:
     enabled: true
     ingressClassName: alb
-    path: /*
     annotations:
       alb.ingress.kubernetes.io/scheme: internet-facing
       alb.ingress.kubernetes.io/target-type: ip
@@ -12,8 +11,9 @@ grafana:
 prometheus:
   ingress:
     enabled: true
+    paths:
+      - /*
     ingressClassName: alb
-    path: /*
     annotations:
       alb.ingress.kubernetes.io/scheme: internet-facing
       alb.ingress.kubernetes.io/target-type: ip
