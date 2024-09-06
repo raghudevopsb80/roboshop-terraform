@@ -1,9 +1,8 @@
 grafana:
-#   service:
-#     type: NodePort
   ingress:
     enabled: true
     ingressClassName: alb
+    path: /*
     annotations:
       alb.ingress.kubernetes.io/scheme: internet-facing
       alb.ingress.kubernetes.io/target-type: ip
@@ -11,11 +10,10 @@ grafana:
       alb.ingress.kubernetes.io/healthcheck-path: /login
 
 prometheus:
-#   service:
-#     type: NodePort
   ingress:
     enabled: true
     ingressClassName: alb
+    path: /*
     annotations:
       alb.ingress.kubernetes.io/scheme: internet-facing
       alb.ingress.kubernetes.io/target-type: ip
