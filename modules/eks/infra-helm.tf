@@ -18,7 +18,6 @@ resource "helm_release" "external-secrets" {
   repository = "https://charts.external-secrets.io"
   chart      = "external-secrets"
   namespace  = "kube-system"
-  wait       = true
 }
 
 resource "null_resource" "external-secrets-store" {
@@ -69,7 +68,6 @@ resource "helm_release" "prometheus-stack" {
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "kube-prometheus-stack"
   namespace  = "kube-system"
-  wait       = true
 
   values = [
     file("${path.module}/helm-configs/prometheus-stack.yaml")
@@ -114,7 +112,6 @@ resource "helm_release" "external-dns" {
   repository = "https://kubernetes-sigs.github.io/external-dns/"
   chart      = "external-dns"
   namespace  = "kube-system"
-  wait       = true
 }
 
 
@@ -127,7 +124,6 @@ resource "helm_release" "aws-controller-ingress" {
   repository = "https://aws.github.io/eks-charts"
   chart      = "aws-load-balancer-controller"
   namespace  = "kube-system"
-  wait       = true
 
   set {
     name  = "clusterName"
