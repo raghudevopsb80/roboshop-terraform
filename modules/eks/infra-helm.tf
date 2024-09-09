@@ -141,4 +141,15 @@ resource "helm_release" "aws-controller-ingress" {
 
 }
 
+### Uninstall resource
+resource "null_resource" "uninstall" {
 
+  provisioner "local-exec" {
+    when    = destroy
+    command = <<EOF
+kubectl delete ingress prometheus-grafana -n kube-system
+kubectl delete ingress prometheus-kube-prometheus-prometheus -n kube-system
+EOF
+  }
+
+}
