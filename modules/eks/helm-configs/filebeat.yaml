@@ -39,7 +39,7 @@ daemonset:
                 logs_path: "/var/log/containers/"
 
       output.logstash:
-        hosts: '172.31.81.176:5044'
+        hosts: 'elk-internal.rdevopsb80.online:5044'
   # Only used when updateStrategy is set to "RollingUpdate"
   maxUnavailable: 1
   nodeSelector: {}
