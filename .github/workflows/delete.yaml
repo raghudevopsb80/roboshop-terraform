@@ -11,12 +11,12 @@ jobs:
       - name: Terraform Destroy
         run: terraform destroy -var-file=env-dev/main.tfvars -auto-approve -var vault_token=${{ secrets.VAULT_TOKEN }}
 
-  PROD:
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v4
-      - name: Terraform Init
-        run: terraform init -backend-config=env-prod/state.tfvars
-      - name: Terraform Destroy
-        run: terraform destroy -var-file=env-prod/main.tfvars -auto-approve -var vault_token=${{ secrets.VAULT_TOKEN }}
-
+#   PROD:
+#     runs-on: self-hosted
+#     steps:
+#       - uses: actions/checkout@v4
+#       - name: Terraform Init
+#         run: terraform init -backend-config=env-prod/state.tfvars
+#       - name: Terraform Destroy
+#         run: terraform destroy -var-file=env-prod/main.tfvars -auto-approve -var vault_token=${{ secrets.VAULT_TOKEN }}
+#
