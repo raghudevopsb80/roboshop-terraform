@@ -49,10 +49,10 @@ daemonset:
             matchers:
             - logs_path:
                 logs_path: "/var/log/containers/"
-          - drop_event:
-              when:
-                equals:
-                  kubernetes.container.name: "shipping"
+        - drop_event:
+            when:
+              equals:
+                kubernetes.container.name: "shipping"
       output.logstash:
         hosts: 'elk-internal.rdevopsb80.online:5044'
   # Only used when updateStrategy is set to "RollingUpdate"
