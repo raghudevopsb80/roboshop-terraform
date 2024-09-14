@@ -40,7 +40,7 @@ daemonset:
             when:
               not:
                 equals:
-                  kubernetes.container.name: "shipping"
+                  kubernetes.labels.appName: "shipping"
         multiline.type: pattern
         multiline.pattern: "^[0-9][0-9][0-9][0-9]"
         multiline.negate: true
@@ -57,7 +57,7 @@ daemonset:
         - drop_event:
             when:
               equals:
-                kubernetes.container.name: "shipping"
+                kubernetes.labels.appName: "shipping"
       output.logstash:
         hosts: 'elk-internal.rdevopsb80.online:5044'
   # Only used when updateStrategy is set to "RollingUpdate"
