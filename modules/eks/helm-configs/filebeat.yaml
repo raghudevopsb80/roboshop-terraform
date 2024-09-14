@@ -47,6 +47,20 @@ daemonset:
         multiline.match: after
       - type: container
         paths:
+          - /var/log/containers/payment*.log  # Replace with your specific container's log path
+        processors:
+        - add_kubernetes_metadata:
+            host: ${NODE_NAME}
+            matchers:
+              - logs_path:
+                  logs_path: "/var/log/containers/"
+        - drop_event:
+            when:
+              not:
+                equals:
+                  kubernetes.labels.appName: "payment"
+      - type: container
+        paths:
           - /var/log/containers/*.log
         processors:
         - add_kubernetes_metadata:
@@ -56,8 +70,11 @@ daemonset:
                 logs_path: "/var/log/containers/"
         - drop_event:
             when:
-              equals:
-                kubernetes.labels.appName: "shipping"
+              or:
+                - equals:
+                    kubernetes.labels.appName: "shipping"
+                - equals:
+                    kubernetes.labels.appName: "payment"
       output.logstash:
         hosts: 'elk-internal.rdevopsb80.online:5044'
   # Only used when updateStrategy is set to "RollingUpdate"
