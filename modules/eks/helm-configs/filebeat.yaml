@@ -29,6 +29,19 @@ daemonset:
       filebeat.inputs:
       - type: container
         paths:
+          - /var/log/containers/shipping*.log  # Replace with your specific container's log path
+        processors:
+          - add_kubernetes_metadata:
+              host: ${NODE_NAME}
+              matchers:
+                - logs_path:
+                    logs_path: "/var/log/containers/"
+        multiline.type: pattern
+        multiline.pattern: "^[0-9][0-9][0-9][0-9]"
+        multiline.negate: true
+        multiline.match: after
+      - type: container
+        paths:
           - /var/log/containers/*.log
         processors:
         - add_kubernetes_metadata:
