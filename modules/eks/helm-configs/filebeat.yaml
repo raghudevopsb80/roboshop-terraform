@@ -31,11 +31,16 @@ daemonset:
         paths:
           - /var/log/containers/shipping*.log  # Replace with your specific container's log path
         processors:
-          - add_kubernetes_metadata:
-              host: ${NODE_NAME}
-              matchers:
-                - logs_path:
-                    logs_path: "/var/log/containers/"
+        - add_kubernetes_metadata:
+            host: ${NODE_NAME}
+            matchers:
+              - logs_path:
+                  logs_path: "/var/log/containers/"
+        - drop_event:
+            when:
+              not:
+                equals:
+                  kubernetes.container.name: "shipping"
         multiline.type: pattern
         multiline.pattern: "^[0-9][0-9][0-9][0-9]"
         multiline.negate: true
