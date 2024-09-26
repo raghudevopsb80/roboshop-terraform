@@ -18,6 +18,7 @@ resource "helm_release" "external-secrets" {
   repository = "https://charts.external-secrets.io"
   chart      = "external-secrets"
   namespace  = "kube-system"
+  wait       = "false"
 }
 
 resource "null_resource" "external-secrets-store" {
@@ -62,12 +63,13 @@ EOF
 ## Prometheus Stack
 resource "helm_release" "prometheus-stack" {
 
-  depends_on = [null_resource.kube-config]
+  depends_on = [null_resource.kube-config, helm_release.aws-controller-ingress]
 
   name       = "prometheus"
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "kube-prometheus-stack"
   namespace  = "kube-system"
+  wait       = "false"
 
   values = [
     file("${path.module}/helm-configs/prometheus-stack.yaml")
@@ -112,6 +114,7 @@ resource "helm_release" "external-dns" {
   repository = "https://kubernetes-sigs.github.io/external-dns/"
   chart      = "external-dns"
   namespace  = "kube-system"
+  wait       = "false"
 }
 
 
@@ -124,6 +127,7 @@ resource "helm_release" "aws-controller-ingress" {
   repository = "https://aws.github.io/eks-charts"
   chart      = "aws-load-balancer-controller"
   namespace  = "kube-system"
+  wait       = "false"
 
   set {
     name  = "clusterName"
@@ -159,6 +163,7 @@ resource "helm_release" "filebeat" {
   repository = "https://helm.elastic.co"
   chart      = "filebeat"
   namespace  = "kube-system"
+  wait       = "false"
 
   values = [
     file("${path.module}/helm-configs/filebeat.yaml")
