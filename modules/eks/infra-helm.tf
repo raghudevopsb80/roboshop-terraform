@@ -171,3 +171,37 @@ resource "helm_release" "filebeat" {
 
 }
 
+# Argocd Helm Chart
+resource "helm_release" "argocd" {
+  depends_on = [
+    null_resource.kube-config,
+    helm_release.aws-controller-ingress
+  ]
+
+  name             = "argocd"
+  repository       = "https://argoproj.github.io/argo-helm"
+  chart            = "argo-cd"
+  namespace        = "argocd"
+  create_namespace = true
+
+  set {
+    name  = "global.domain"
+    value = "argocd-${var.env}.rdevopsb80.online"
+  }
+
+  set {
+    name  = "server.ingress.enabled"
+    value = true
+  }
+
+  set {
+    name  = "server.ingress.ingressClassName"
+    value = "alb"
+  }
+
+  values = [
+    file("${path.module}/helm-configs/argocd.yaml")
+  ]
+
+}
+
