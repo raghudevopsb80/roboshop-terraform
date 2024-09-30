@@ -189,16 +189,6 @@ resource "helm_release" "argocd" {
     value = "argocd-${var.env}.rdevopsb80.online"
   }
 
-  set {
-    name  = "server.ingress.enabled"
-    value = true
-  }
-
-  set {
-    name  = "server.ingress.ingressClassName"
-    value = "alb"
-  }
-
   values = [
     file("${path.module}/helm-configs/argocd.yaml")
   ]
