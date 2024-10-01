@@ -183,6 +183,7 @@ resource "helm_release" "argocd" {
   chart            = "argo-cd"
   namespace        = "argocd"
   create_namespace = true
+  wait             = false
 
   set {
     name  = "global.domain"
