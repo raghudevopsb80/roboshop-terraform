@@ -205,11 +205,11 @@ resource "aws_nat_gateway" "main" {
 
 # Flow Logs
 resource "aws_cloudwatch_log_group" "vpc-flow-logs" {
-  name = "vpc-flow-logs-${var.env}"
+  name       = "vpc-flow-logs-${var.env}"
   kms_key_id = var.kms_key_id
 
   tags = {
-    env = "dev"
+    env  = "dev"
     Name = "vpc-flow-logs-${var.env}"
   }
 }
@@ -261,7 +261,7 @@ resource "aws_iam_role" "vpc-flow-logs" {
           ]
         }
       ]
-    }
+      }
     )
   }
 

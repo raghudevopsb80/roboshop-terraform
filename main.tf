@@ -29,6 +29,7 @@ module "db" {
   bastion_nodes = var.bastion_nodes
   vault_token   = var.vault_token
   zone_id       = var.zone_id
+  kms_arn       = var.kms_arn
 }
 
 module "eks" {

@@ -15,7 +15,7 @@ resource "aws_eks_cluster" "main" {
   }
 
   encryption_config {
-    resources = [ "secrets" ]
+    resources = ["secrets"]
     provider {
       key_arn = var.kms_arn
     }
