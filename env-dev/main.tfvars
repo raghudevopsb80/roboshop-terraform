@@ -1,6 +1,7 @@
 env           = "dev"
 bastion_nodes = ["172.31.91.201/32"]
 zone_id       = "Z00376861T6KFA01SJSIS"
+kms_arn       = "arn:aws:kms:us-east-1:633788536644:key/7def5f86-30a6-4287-a850-dba888623362"
 
 vpc = {
   cidr               = "10.10.0.0/16"

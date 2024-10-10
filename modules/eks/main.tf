@@ -13,6 +13,13 @@ resource "aws_eks_cluster" "main" {
     authentication_mode                         = "API_AND_CONFIG_MAP"
     bootstrap_cluster_creator_admin_permissions = true
   }
+
+  encryption_config {
+    resources = [ "secrets" ]
+    provider {
+      key_arn = var.kms_arn
+    }
+  }
 }
 
 resource "aws_eks_node_group" "main" {
