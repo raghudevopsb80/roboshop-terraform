@@ -20,6 +20,9 @@ resource "aws_eks_cluster" "main" {
       key_arn = var.kms_arn
     }
   }
+
+  enabled_cluster_log_types = ["api", "authenticator", "audit", "scheduler", "controllerManager"]
+
 }
 
 resource "aws_eks_node_group" "main" {
