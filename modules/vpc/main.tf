@@ -202,3 +202,69 @@ resource "aws_nat_gateway" "main" {
   }
 }
 
+
+# Flow Logs
+resource "aws_cloudwatch_log_group" "vpc-flow-logs" {
+  name = "vpc-flow-logs-${var.env}"
+
+  tags = {
+    env = "dev"
+    Name = "vpc-flow-logs-${var.env}"
+  }
+}
+
+resource "aws_flow_log" "vpc-flow-logs" {
+  iam_role_arn    = aws_iam_role.vpc-flow-logs.arn
+  log_destination = aws_cloudwatch_log_group.vpc-flow-logs.arn
+  traffic_type    = "ALL"
+  vpc_id          = aws_vpc.main.id
+}
+
+resource "aws_iam_role" "vpc-flow-logs" {
+  name = "${var.env}-vpc-flow-logs-role"
+
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : [
+            "vpc-flow-logs.amazonaws.com"
+          ]
+        },
+        "Action" : [
+          "sts:AssumeRole"
+        ]
+      }
+    ]
+  })
+
+  inline_policy {
+    name = "cloudwatch-logs"
+
+    policy = jsonencode({
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Effect" : "Allow",
+          "Action" : [
+            "logs:CreateLogGroup",
+            "logs:CreateLogStream",
+            "logs:PutLogEvents",
+            "logs:DescribeLogGroups",
+            "logs:DescribeLogStreams",
+          ],
+          "Resource" : [
+            "*"
+          ]
+        }
+      ]
+    }
+    )
+  }
+
+}
+
+
+
