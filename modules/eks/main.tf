@@ -28,8 +28,9 @@ resource "aws_eks_cluster" "main" {
 resource "aws_launch_template" "main" {
   for_each        = var.node_groups
   name                   = each.key
+
   block_device_mappings {
-    device_name = "/dev/sda1"
+    device_name = "/dev/xvda"
     ebs {
       volume_size = 30
       encrypted = true
