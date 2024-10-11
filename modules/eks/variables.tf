@@ -6,4 +6,4 @@ variable "add_ons" {}
 variable "eks-iam-access" {}
 variable "vpc_id" {}
 variable "kms_arn" {}
-
+variable "zone_id" {}

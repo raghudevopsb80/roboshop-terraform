@@ -91,7 +91,7 @@ resource "aws_iam_role" "external-dns-pod-role" {
             "route53:ChangeResourceRecordSets"
           ],
           "Resource" : [
-            "arn:aws:route53:::hostedzone/*"
+            "arn:aws:route53:::hostedzone/${var.zone_id}"
           ]
         },
         {
