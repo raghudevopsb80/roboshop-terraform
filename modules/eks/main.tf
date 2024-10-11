@@ -25,6 +25,29 @@ resource "aws_eks_cluster" "main" {
 
 }
 
+resource "aws_launch_template" "main" {
+  for_each        = var.node_groups
+  name                   = each.key
+
+  instance_market_options {
+    market_type = "spot"
+  }
+
+  block_device_mappings {
+    device_name = "/dev/sda1"
+    ebs {
+      volume_size = 30
+      encrypted = true
+      kms_key_id = var.kms_arn
+    }
+  }
+
+  tags = {
+    Name = each.key
+  }
+}
+
+
 resource "aws_eks_node_group" "main" {
   for_each        = var.node_groups
   cluster_name    = aws_eks_cluster.main.name
@@ -33,6 +56,11 @@ resource "aws_eks_node_group" "main" {
   subnet_ids      = var.subnet_ids
   instance_types  = each.value["instance_types"]
   capacity_type   = each.value["capacity_type"]
+
+  launch_template {
+    name = each.key
+    version = "$Latest"
+  }
 
   scaling_config {
     desired_size = each.value["min_size"]
