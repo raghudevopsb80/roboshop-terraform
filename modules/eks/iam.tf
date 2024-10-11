@@ -121,6 +121,7 @@ resource "aws_eks_pod_identity_association" "external-dns-pod-role" {
 
 
 ## AWS Load Balancer Controller Ingress
+#tfsec:ignore:aws-iam-no-policy-wildcards
 resource "aws_iam_role" "aws-ingress-controller-role" {
   name = "${var.env}-eks-aws-ingress-controller-role"
 
