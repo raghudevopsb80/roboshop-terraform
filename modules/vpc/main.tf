@@ -255,7 +255,6 @@ resource "aws_iam_role" "vpc-flow-logs" {
             "logs:CreateLogStream",
             "logs:PutLogEvents"
           ],
-          #tfsec:ignore:aws-iam-no-policy-wildcards
           "Resource": "*"
         },
         {
@@ -265,7 +264,6 @@ resource "aws_iam_role" "vpc-flow-logs" {
             "logs:DescribeLogStreams",
             "logs:CreateLogGroup"
           ],
-          #tfsec:ignore:aws-iam-no-policy-wildcards
           "Resource": "arn:aws:logs:us-east-1:633788536644:log-group:vpc-flow-logs-dev:*"
         }
       ]
