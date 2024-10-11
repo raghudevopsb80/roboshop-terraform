@@ -46,7 +46,7 @@ eks = {
   eks_version = "1.30"
 
   node_groups = {
-    main-spot = {
+    main-spot1 = {
       max_size       = 3
       min_size       = 1
       instance_types = ["t3.xlarge"]
