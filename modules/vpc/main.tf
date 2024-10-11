@@ -245,24 +245,28 @@ resource "aws_iam_role" "vpc-flow-logs" {
     name = "cloudwatch-logs"
 
     policy = jsonencode({
-      "Version" : "2012-10-17",
-      "Statement" : [
+      "Version": "2012-10-17",
+      "Statement": [
         {
-          "Effect" : "Allow",
-          "Action" : [
-            "logs:CreateLogGroup",
+          "Sid": "VisualEditor0",
+          "Effect": "Allow",
+          "Action": [
             "logs:CreateLogStream",
-            "logs:PutLogEvents",
-            "logs:DescribeLogGroups",
-            "logs:DescribeLogStreams",
+            "logs:PutLogEvents"
           ],
-          "Resource" : [
-            "*"
-          ]
+          "Resource": "*"
+        },
+        {
+          "Sid": "VisualEditor1",
+          "Effect": "Allow",
+          "Action": [
+            "logs:DescribeLogStreams",
+            "logs:CreateLogGroup"
+          ],
+          "Resource": "arn:aws:logs:us-east-1:633788536644:log-group:vpc-flow-logs-dev:*"
         }
       ]
-      }
-    )
+    })
   }
 
 }
