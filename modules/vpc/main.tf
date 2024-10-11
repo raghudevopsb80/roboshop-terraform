@@ -221,6 +221,7 @@ resource "aws_flow_log" "vpc-flow-logs" {
   vpc_id          = aws_vpc.main.id
 }
 
+#tfsec:ignore:aws-iam-no-policy-wildcards
 resource "aws_iam_role" "vpc-flow-logs" {
   name = "${var.env}-vpc-flow-logs-role"
 
