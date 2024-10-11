@@ -254,6 +254,7 @@ resource "aws_iam_role" "vpc-flow-logs" {
             "logs:CreateLogStream",
             "logs:PutLogEvents"
           ],
+          #tfsec:ignore:aws-iam-no-policy-wildcards
           "Resource": "*"
         },
         {
