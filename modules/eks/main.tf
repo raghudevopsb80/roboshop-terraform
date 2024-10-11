@@ -28,11 +28,6 @@ resource "aws_eks_cluster" "main" {
 resource "aws_launch_template" "main" {
   for_each        = var.node_groups
   name                   = each.key
-
-  instance_market_options {
-    market_type = "spot"
-  }
-
   block_device_mappings {
     device_name = "/dev/sda1"
     ebs {
