@@ -254,7 +254,7 @@ resource "aws_iam_role" "vpc-flow-logs" {
             "logs:CreateLogStream",
             "logs:PutLogEvents"
           ],
-          "Resource": "arn:::us-east-1:633788536644:log-group:vpc-flow-logs-dev:log-stream:eni*"
+          "Resource": "*"
         },
         {
           "Sid": "VisualEditor1",
