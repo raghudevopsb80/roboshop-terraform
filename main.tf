@@ -33,16 +33,18 @@ module "db" {
 }
 
 module "eks" {
-  depends_on     = [module.vpc]
-  source         = "./modules/eks"
-  env            = var.env
-  subnet_ids     = module.vpc.app_subnet_ids
-  node_groups    = var.eks["node_groups"]
-  eks_version    = var.eks["eks_version"]
-  add_ons        = var.eks["add_ons"]
-  eks-iam-access = var.eks["eks-iam-access"]
-  vpc_id         = module.vpc.vpc_id
-  kms_arn        = var.kms_arn
-  zone_id        = var.zone_id
+  depends_on       = [module.vpc]
+  source           = "./modules/eks"
+  env              = var.env
+  subnet_ids       = module.vpc.app_subnet_ids
+  node_groups      = var.eks["node_groups"]
+  eks_version      = var.eks["eks_version"]
+  add_ons          = var.eks["add_ons"]
+  eks-iam-access   = var.eks["eks-iam-access"]
+  vpc_id           = module.vpc.vpc_id
+  kms_arn          = var.kms_arn
+  zone_id          = var.zone_id
+  vpc_cidr         = module.vpc.vpc_cidr
+  default_vpc_cidr = module.vpc.default_vpc_cidr
 }
 

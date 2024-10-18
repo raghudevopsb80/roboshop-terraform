@@ -1,3 +1,29 @@
+resource "aws_security_group" "cluster-sg" {
+  name        = "${var.env}-eks-cluster-sg"
+  description = "${var.env}-eks-cluster-sg"
+  vpc_id      = var.vpc_id
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "TCP"
+    cidr_blocks = [var.vpc_cidr, var.default_vpc_cidr]
+  }
+
+  tags = {
+    Name = "${var.env}-eks-cluster-sg"
+  }
+}
+
+
 resource "aws_eks_cluster" "main" {
   name     = "${var.env}-eks"
   role_arn = aws_iam_role.eks-cluster.arn
@@ -7,6 +33,7 @@ resource "aws_eks_cluster" "main" {
     subnet_ids              = var.subnet_ids
     endpoint_private_access = true
     endpoint_public_access  = false
+    security_group_ids      = [aws_security_group.cluster-sg.id]
   }
 
   access_config {
@@ -26,15 +53,15 @@ resource "aws_eks_cluster" "main" {
 }
 
 resource "aws_launch_template" "main" {
-  for_each        = var.node_groups
-  name                   = each.key
+  for_each = var.node_groups
+  name     = each.key
 
   block_device_mappings {
     device_name = "/dev/xvda"
     ebs {
       volume_size = 30
-      encrypted = true
-      kms_key_id = var.kms_arn
+      encrypted   = true
+      kms_key_id  = var.kms_arn
     }
   }
 
@@ -54,7 +81,7 @@ resource "aws_eks_node_group" "main" {
   capacity_type   = each.value["capacity_type"]
 
   launch_template {
-    name = each.key
+    name    = each.key
     version = "$Latest"
   }
 

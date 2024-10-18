@@ -28,4 +28,11 @@ output "subnets" {
   })
 }
 
+output "vpc_cidr" {
+  value = var.cidr
+}
+
+output "default_vpc_cidr" {
+  value = var.default_vpc_cidr
+}
 

@@ -7,3 +7,5 @@ variable "eks-iam-access" {}
 variable "vpc_id" {}
 variable "kms_arn" {}
 variable "zone_id" {}
+variable "vpc_cidr" {}
+variable "default_vpc_cidr" {}
