@@ -205,7 +205,7 @@ resource "helm_release" "istio-base" {
 
   name             = "istio-base"
   repository       = "https://istio-release.storage.googleapis.com/charts"
-  chart            = "istio/base"
+  chart            = "base"
   namespace        = "istio-system"
   create_namespace = true
   wait             = true
